@@ -11,8 +11,8 @@ import util.ConnectionPool;
 public class BoardDAO {
 	//테이블에 데이터를 입력하는 메서드
 	
-	public static int insert(String btitle, String bwriter, String bcontent) throws NamingException, SQLException {
-	
+public static int insert(String btitle, String bwriter, String bcontent) throws NamingException, SQLException {
+		
 		String sql = "INSERT INTO board(btitle,bwriter,bcontent) VALUES(?,?,?)";
 		//커넥션 풀 사용
 		Connection conn = ConnectionPool.get();
