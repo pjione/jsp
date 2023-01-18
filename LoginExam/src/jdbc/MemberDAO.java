@@ -50,4 +50,16 @@ public static int login(String mid, String mpass) throws NamingException, SQLExc
 		
 	
 }
+public static int exist(String memail) throws NamingException, SQLException {
+	String sql = "SELECT * FROM member WHERE memail = ?";
+	
+	Connection conn = ConnectionPool.get();
+	PreparedStatement pstmt = conn.prepareStatement(sql);
+	pstmt.setString(1, memail);
+	ResultSet rs = pstmt.executeQuery();
+	
+	if(!rs.next()) return 1;
+	
+	return 0;
+}
 }
