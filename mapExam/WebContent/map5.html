@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>중심 좌표값 변경</title>
+</head>
+<body>
+	<div id="map" style="width:100%;height:350px;"></div>
+	<p><em>지도 중심좌표가 변경되면 지도 정보가 표출됩니다</em></p>
+	<p id="result"></p>
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b228c636b51d3c9d389fa37c9bd68e8e"></script>
+	<script>
+		var container = document.getElementById('map');
+		var options = {
+			center: new kakao.maps.LatLng(37.695473, 126.766789),
+			level: 3
+		};
+
+		var map = new kakao.maps.Map(container, options);
+		
+		//지도 변경 시 중심 좌표
+		kakao.maps.event.addListener(map, 'center_changed', function(){
+			//지도의 레벨 얻기
+			var level = map.getLevel();
+			
+			//지도의 중심좌표 얻기
+			var latlng = map.getCenter();
+			
+			var message = '<p> 지도의 레벨은 ' + level + '이고</p>';
+			message += '<p> 중심 좌표는 위도 ' + latlng.getLat() + ', 경도 ';
+			message += latlng.getLng() + '입니다.</p>';
+			
+			var resultDiv = document.getElementById('result');
+			resultDiv.innerHTML = message;
+		});
+	</script>
+</body>
+</html>
