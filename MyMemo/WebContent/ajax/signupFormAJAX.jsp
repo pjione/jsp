@@ -7,10 +7,11 @@
 <meta charset="UTF-8">
 <title>회원가입</title>
  <!-- Custom styles for this template -->
- <link href="sign-in.css" rel="stylesheet">
+ <link href="../sign-in.css" rel="stylesheet">
 </head>
 <body>
-<%@ include file = "header.jsp" %>
+<%@ include file = "/header.jsp" %>
+<link href="../sign-in.css" rel="stylesheet">
 <body class="text-center">
 	<main class="form-signin w-100 m-auto">
 	  
@@ -39,7 +40,7 @@
 	    <p class="mt-5 mb-3 text-muted">&copy; 2017–2022</p>
 	  
 	</main>
-<%@ include file = "footer.jsp" %>   
+<%@ include file = "/footer.jsp" %>   
 <script>
 function signin(){
 	 $.ajax({
@@ -48,7 +49,7 @@ function signin(){
 			data : {
 				id:encodeURIComponent(document.getElementById('id').value),
 				password:(document.getElementById('password').value),
-				name:(document.getElementById('name').value),
+				name:(document.getElementById('name').value)
 			},
 			dataType : 'text',
 			success : function(result) {

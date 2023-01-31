@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>회원가입</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
  <!-- Custom styles for this template -->
  <link href="sign-in.css" rel="stylesheet">
 </head>

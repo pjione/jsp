@@ -5,13 +5,15 @@
 <head>
 <meta charset="UTF-8">
 <title>로그인</title>
- <!-- Custom styles for this template -->
- <link href="sign-in.css" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 
 </head>
 <body class="text-center">
 	<%@ include file = "header.jsp" %>
+	<!-- Custom styles for this template -->
+	<link href="sign-in.css" rel="stylesheet">
 	<main class="form-signin w-100 m-auto">
-		<form action = "loginCheck.jsp" method = "post"m>
+		<form action = "loginCheck.jsp" method = "post">
 	    <img class="mb-4" src="http://austiny.snu.ac.kr/image/mine.jpg" alt="" width="72" height="57">
 	    <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 	
