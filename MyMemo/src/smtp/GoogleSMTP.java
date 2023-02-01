@@ -7,13 +7,13 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-public class NaverSMTP {
+public class GoogleSMTP {
 	private final Properties serverInfo; //서버 정보
 	private final Authenticator auth; //인증 정보
 	
-	public NaverSMTP() {
+	public GoogleSMTP() {
 		serverInfo = new Properties();
-		serverInfo.put("mail.smtp.host", "smtp.naver.com"); // 메일 서버 지정
+		serverInfo.put("mail.smtp.host", "smtp.gmail.com"); // 메일 서버 지정
 		serverInfo.put("mail.smtp.port", "465"); //포트 번호 (거의 대부분 동일)
 		serverInfo.put("mail.smtp.starttls.enable","true");
 		serverInfo.put("mail.smtp.auth","true");
@@ -27,7 +27,7 @@ public class NaverSMTP {
 		auth = new Authenticator() {
 			@Override
 			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication("mjun0107", "1234");
+				return new PasswordAuthentication("a41924250@gmail.com", "xxxx");
 			}
 		};
 	}
