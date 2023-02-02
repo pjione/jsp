@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context>
-	<Resource name = "jdbc/mymemo"
+	<Resource name = "jdbc/pjwon1120"
 	auth = "Container"
 	type = "javax.sql.DataSource"
 	driverClassName = "com.mysql.jdbc.Driver"
-	url = "jdbc:mysql://localhost:3306/mymemo?serverTimezone=UTC"
-	username="root"
-	password="0000"
+	url = "jdbc:mysql://localhost:3306/pjwon1120?serverTimezone=UTC"
+	username="pjwon1120"
+	password="asdf6570875"
 	maxTotal="16"
 	maxIdle="4"
 	maxWaitMillis="-1"
