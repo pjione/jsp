@@ -27,12 +27,13 @@ public class UserDAO {
 	}
 	
 	public boolean join(String id, String password, String name){
-		sql = "INSERT INTO user(id,password,name) VALUES(?,?,?)";
+		sql = "INSERT INTO user(id,password,name,email) VALUES(?,?,?,?)";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
 			pstmt.setString(2, password);
 			pstmt.setString(3, name);	
+			pstmt.setString(4, name);
 			if(pstmt.executeUpdate()==1) return true;
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -14,7 +14,7 @@
       <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample08">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link active" aria-current="page" href="main.jsp">Home</a>
           </li>
       
           <li class="nav-item dropdown">
@@ -31,10 +31,11 @@
             <ul class="dropdown-menu">
             <% if(sid == null) { %>
             	 <li><a class="dropdown-item" href="loginForm.jsp">로그인</a></li>
-            	 <li><a class="dropdown-item" href="signupForm.jsp">회원가입</a></li>
+                 <li><a class="dropdown-item" href="signupForm.jsp">회원가입</a></li>
+                 
             <% } else {%>
             	 <li><a class="dropdown-item" href="logoutCheck.jsp">로그아웃</a></li>
-            	 <li><a class="dropdown-item" href="signoutForm.jsp">회원탈퇴</a></li>
+                 <li><a class="dropdown-item" href="signoutForm.jsp">회원탈퇴</a></li>
              <%} %>
             </ul>
           </li>
@@ -47,6 +48,9 @@
              </ul>
           </li>
           <%}%>
+          <% if(sid != null) { %>
+            <li style="color: yellowgreen; margin-top: 8px;">[<%=sid%>]님 접속중</li>
+          <%} %>
         </ul>
       </div>
     </div>

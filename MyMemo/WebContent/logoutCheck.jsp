@@ -20,7 +20,7 @@
 	    	로그아웃 완료
 	  </div>
 	  <div class="modal-footer">
-	    <button onclick = "location.href = 'main.jsp'" type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>
+	    <button onclick = "location.href = 'loginForm.jsp'" type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>
 	  </div>
 	</div>
 	</div>

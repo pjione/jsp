@@ -1,3 +1,4 @@
+<%@page import="smtp.SendMail"%>
 <%@page import="jdbc.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -11,6 +12,7 @@
 	String id = request.getParameter("id");
 	String password = request.getParameter("password");
 	String name = request.getParameter("name");
+	String email = request.getParameter("email");
 	
 	if(new UserDAO().exist(id)){
 		%>
@@ -19,7 +21,7 @@
 		<div class="modal-dialog">
 		<div class="modal-content">
 		  <div class="modal-header">
-		    <h1 class="modal-title fs-5" id="exampleModalLabel">회원가입</h1>
+		    <h1 class="modal-title fs-5" id="exampleModalLabel">로그인</h1>
 		    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		  </div>
 		  <div class="modal-body">
@@ -40,13 +42,14 @@
 <% 
 	} else{
 		if(new UserDAO().join(id,password,name)){
+			SendMail.sending(email, name);
 			%>
 			<!-- Modal -->
 			<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 			<div class="modal-content">
 			  <div class="modal-header">
-			    <h1 class="modal-title fs-5" id="exampleModalLabel2">회원가입</h1>
+			    <h1 class="modal-title fs-5" id="exampleModalLabel2">로그인</h1>
 			    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			  </div>
 			  <div class="modal-body">
