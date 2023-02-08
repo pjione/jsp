@@ -7,7 +7,7 @@
 
 	String id = request.getParameter("id");
 	String content = request.getParameter("content");
-	
+		
 	out.print(new FeedDAO().insert(id,content));
 	
 %>

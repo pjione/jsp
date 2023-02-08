@@ -3,7 +3,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page errorPage = "page_error_page.jsp" %>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,22 +11,49 @@
 <title>main page</title>
 </head>
 <body>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>    
-	<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
-	<link href="css/font.css" rel="stylesheet">
+	<%@ include file = "/header.jsp" %>
+	<link href="/css/sign-in.css" rel="stylesheet">
 	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-	<div class = "container bg-warning shadow mx-auto text-center">
-		<h2>Group Talk</h2>
-		<hr>
-		<div class = "input-group">
-			<input type = "hidden" id = "id" value = "z">
-			<input id = "summernote" class = "form-control" type = "text" placeholder = "내용을 적으세요">
-			<button type = "button" class = "btn btn-primary" onclick = "addItem()">추가</button>
+	<% sid = (String)session.getAttribute("id"); %>
+	<%if(sid != null){	
+		session.setAttribute("id", sid);
+	} else{ %>
+		<!-- Modal -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+		<div class="modal-content">
+		  <div class="modal-header">
+		    <h1 class="modal-title fs-5" id="exampleModalLabel">회원 전용 메뉴</h1>
+		    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		  </div>
+		  <div class="modal-body">
+		    	로그인이 필요합니다.
+		  </div>
+		  <div class="modal-footer">
+		    <button onclick = "location.href = '/user/loginForm.jsp'" type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>
+		  </div>
 		</div>
-		<hr>
-		<table align = center>
+		</div>
+		</div>
+		<script>
+			$(function(){
+				$("#exampleModal").modal("show");
+			})
+		</script>	
+	<% }%>
+	<div class = "container m-auto">	
+		<main class="form-signin w-100 m-auto">
+		    <h1 class="h3 mb-3 fw-normal">Group Talk</h1>
+		    <div>
+		      <input type = "hidden" id = "id" value = "<%=sid%>">
+		    </div>
+		    <div>
+		      	<textarea id="summernote" name = "content" class="form-control"></textarea> 
+		    </div>
+		    <button type = "button" class="btn btn-lg btn-primary" onclick = "addItem()">추가</button>
+  		</main>
+		<table align = center class = "my-5">
 			<thead>
 				<tr>
 					<td><b>작성 메모 리스트</b></td>
@@ -36,11 +62,11 @@
 			<tbody id = "ajaxTable"></tbody>
 		</table>		
 	</div>
-	<script>
+<script>
 	function searchFunction(){
 		$.ajax({
 			type : 'post',
-			url : 'feedall.jsp',
+			url : '/feed/feedall.jsp',
 			success : function(data){
 				var feeds = JSON.parse(data.trim());
 				var str = "";
@@ -51,9 +77,14 @@
 					str += "<td></td>";
 					str += "<td><small>" + feeds[i].ts + "</small></td></tr>";
 					str += "<tr><td colspan=3>" + feeds[i].content + "</td></tr>";
+					str += "<tr><td colspan=3>";
+					if ("<%=sid%>" == feeds[i].id) {
+						str += "<div onclick='delItem(\"" + feeds[i].no + "\")'><span class ='bg-warning text-danger'>Delete</span></div>";
+					}
+					str += "</td></tr>"
 				}$("#ajaxTable").html(str)
 			}
-		})
+		});
 	}
 
 
@@ -63,7 +94,7 @@
 	function addItem(){
 		 $.ajax({
 			 type : 'post',
-				url : "feedadd.jsp",
+				url : "/feed/feedadd.jsp",
 				data : {
 					id:document.getElementById('id').value,
 					content:$("#summernote").summernote("code")
@@ -80,8 +111,23 @@
 				}
 						
 			});
-		
-		
+	}
+	 function delItem(no){
+		 $.ajax({
+			 type : 'post',
+				url : "/feed/feeddel.jsp",
+				data : {
+					no:no
+				},
+				dataType : 'text',
+				success : function(result) {
+					searchFunction();
+				},
+				error : function(error) {
+					console.log(error);
+				}
+						
+			});
 	}
 </script>
  <script>
@@ -89,6 +135,7 @@
       $('#summernote').summernote({
     	  // 에디터 높이
     	  height: 100,
+    	  width: 360,
     	  // 에디터 한글 설정
     	  lang: "ko-KR",
     	  // 에디터에 커서 이동 (input창의 autofocus라고 생각하시면 됩니다.)
@@ -103,13 +150,12 @@
     		    // 글자색
     		    ['color', ['forecolor','color']],
     		    // 글머리 기호, 번호매기기, 문단정렬
-    		    ['para', ['ul', 'ol', 'paragraph']],
+    		    //['para', ['ul', 'ol', 'paragraph']],
     		    // 줄간격
-    		    ['height', ['height']],
+    		    //['height', ['height']],
     		    // 그림첨부, 링크만들기, 동영상첨부
-    		    ['insert',['picture','link','video']]
-    		
-    		    
+    		    ['insert',['picture']]
+    		    //['insert',['picture','link','video']]
     		  ],
    		  // 추가한 글꼴
    		fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체'],
@@ -117,5 +163,6 @@
    		fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
       });
     </script>
+    <%@ include file = "/footer.jsp" %>
 </body>
 </html>

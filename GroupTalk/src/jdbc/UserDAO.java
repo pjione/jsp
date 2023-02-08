@@ -25,6 +25,23 @@ public class UserDAO {
 	public UserDAO() {
 		try {conn = ConnectionPool.get();} catch (NamingException | SQLException e) {e.printStackTrace();}
 	}
+	public boolean edit(String id, String password, String name, String email){
+		sql = "UPDATE user SET password = ?, name = ?, email = ? where id = ?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, password);
+			pstmt.setString(2, name);
+			pstmt.setString(3, email);	
+			pstmt.setString(4, id);
+			if(pstmt.executeUpdate()==1) return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			 if (pstmt != null) try { pstmt.close(); } catch(Exception e) {e.printStackTrace();}
+	         if (conn != null) try { conn.close(); } catch(Exception e) {e.printStackTrace();}
+		}
+		return false;		
+	}
 	
 	public boolean join(String id, String password, String name){
 		sql = "INSERT INTO user(id,password,name,email) VALUES(?,?,?,?)";

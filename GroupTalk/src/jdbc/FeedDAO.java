@@ -23,7 +23,20 @@ public class FeedDAO {
 	public FeedDAO() {
 		try {conn = ConnectionPool.get();} catch (NamingException | SQLException e) {e.printStackTrace();}
 	}
-	
+	public boolean delete(String no) {
+		sql = "DELETE FROM feed WHERE no = ?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, no);
+			if(pstmt.executeUpdate() == 1) return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (pstmt != null) try { pstmt.close(); } catch(Exception e) {e.printStackTrace();}
+			if (conn != null) try { conn.close(); } catch(Exception e) {e.printStackTrace();}
+		}
+		return false;
+	}
 	public boolean insert(String id, String content){
 		sql = "INSERT INTO feed(id,content) VALUES(?,?)";
 		try {
@@ -41,30 +54,11 @@ public class FeedDAO {
 	}
 	
 	
-	public List<FeedDTO> getAllList() {	
-		sql = "SELECT * FROM feed ORDER BY ts DESC";
-		List<FeedDTO> feedList = new ArrayList<>();
-		try {
-			pstmt = conn.prepareStatement(sql);
-			rs = pstmt.executeQuery();
-			while(rs.next()) {
-				feedList.add(new FeedDTO(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4)));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			if (pstmt != null) try { pstmt.close(); } catch(Exception e) {e.printStackTrace();}
-			if (conn != null) try { conn.close(); } catch(Exception e) {e.printStackTrace();}
-			if (rs != null) try { rs.close(); } catch (SQLException e) {e.printStackTrace();}
-		}
-		return feedList;
-	}	
-//	public List<FeedDTO> getList(String id) {	
-//		sql = "SELECT * FROM feed WHERE id = ? ORDER BY ts DESC";
+//	public List<FeedDTO> getAllList() {	
+//		sql = "SELECT * FROM feed ORDER BY ts DESC";
 //		List<FeedDTO> feedList = new ArrayList<>();
 //		try {
 //			pstmt = conn.prepareStatement(sql);
-//			pstmt.setString(1, id);
 //			rs = pstmt.executeQuery();
 //			while(rs.next()) {
 //				feedList.add(new FeedDTO(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4)));
@@ -78,6 +72,25 @@ public class FeedDAO {
 //		}
 //		return feedList;
 //	}	
+	public List<FeedDTO> getList(String id) {	
+		sql = "SELECT * FROM feed WHERE id = ? ORDER BY ts DESC";
+		List<FeedDTO> feedList = new ArrayList<>();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				feedList.add(new FeedDTO(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4)));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (pstmt != null) try { pstmt.close(); } catch(Exception e) {e.printStackTrace();}
+			if (conn != null) try { conn.close(); } catch(Exception e) {e.printStackTrace();}
+			if (rs != null) try { rs.close(); } catch (SQLException e) {e.printStackTrace();}
+		}
+		return feedList;
+	}	
 
 	public String getList() {	
 		sql = "SELECT * FROM feed ORDER BY ts DESC";
