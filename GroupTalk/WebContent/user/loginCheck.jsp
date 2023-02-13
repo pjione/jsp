@@ -17,8 +17,7 @@
 	} else if(new UserDAO().login(id,password) == 0){ //비밀번호 존재x
 		%>
 		<!-- Modal -->
-		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
+		<div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true"><div class="modal-dialog">
 		<div class="modal-content">
 		  <div class="modal-header">
 		    <h1 class="modal-title fs-5" id="exampleModalLabel">회원가입</h1>
@@ -28,7 +27,7 @@
 		    	비밀번호가 틀렸습니다.
 		  </div>
 		  <div class="modal-footer">
-		    <button onclick = "location.href = 'loginForm.jsp'" type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>
+		    <button onclick = "location.href = '/user/loginForm.jsp'" type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>
 		  </div>
 		</div>
 		</div>
@@ -42,8 +41,7 @@
 	} else{ //아이디 존재x
 		%>
 		<!-- Modal -->
-		<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
+		<div class="modal fade" id="exampleModal2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true"><div class="modal-dialog">
 		<div class="modal-content">
 		  <div class="modal-header">
 		    <h1 class="modal-title fs-5" id="exampleModalLabel2">회원가입</h1>
@@ -53,7 +51,7 @@
 		    	아이디가 존재하지 않습니다.
 		  </div>
 		  <div class="modal-footer">
-		    <button onclick = "location.href = 'loginForm.jsp'" type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>
+		    <button onclick = "location.href = '/user/loginForm.jsp'" type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>
 		  </div>
 		</div>
 		</div>

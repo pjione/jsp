@@ -12,7 +12,7 @@
 <%@ include file = "/header.jsp" %>
 <link href="/css/sign-in.css" rel="stylesheet">
 	<main class="form-signin w-100 m-auto">
-	  <form action = "signEditCheck.jsp" method = "post" id = "editFrm">
+	  <form action = "/user/signEditCheck.jsp" method = "post" id = "editFrm">
 	    <h1 class="h3 mb-3 fw-normal">회원정보수정</h1>
 		<div class="form-floating">
 	      <input type="text" class="form-control" id="id" name = "id" readonly value ="<%=sid%>">

@@ -13,7 +13,7 @@
 <link href="/css/sign-in.css" rel="stylesheet">
 <body class="text-center">
 	<main class="form-signin w-100 m-auto">
-	  <form action = "signupCheck.jsp" method = "post" id = "joinFrm">
+	  <form action = "/user/signupCheck.jsp" method = "post" id = "joinFrm">
 	    <img class="mb-4" src="/etc/main.jpg" alt="" width="200" height="160">
 	    <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 		<div class="form-floating">

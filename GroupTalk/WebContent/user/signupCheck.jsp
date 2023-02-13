@@ -17,7 +17,7 @@
 	if(new UserDAO().exist(id)){
 		%>
 		<!-- Modal -->
-		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 		<div class="modal-dialog">
 		<div class="modal-content">
 		  <div class="modal-header">
@@ -28,7 +28,7 @@
 		    	이미 존재하는 아이디
 		  </div>
 		  <div class="modal-footer">
-		    <button onclick = "location.href = 'signupForm.jsp'" type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인
+		    <button onclick = "location.href = '/user/signupForm.jsp'" type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인
 		    </button>
 		  </div>
 		</div>
@@ -41,22 +41,22 @@
 		</script>
 <% 
 	} else{
-		if(new UserDAO().join(id,password,name)){
-			SendMail.sending(email, name);
+		if(new UserDAO().joinTemp(id,password,name,email)){
+			//SendMail.sending(email, name);
 			%>
 			<!-- Modal -->
-			<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal fade" id="exampleModal2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 			<div class="modal-dialog">
 			<div class="modal-content">
 			  <div class="modal-header">
-			    <h1 class="modal-title fs-5" id="exampleModalLabel2">로그인</h1>
+			    <h1 class="modal-title fs-5" id="exampleModalLabel2">회원가입</h1>
 			    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			  </div>
 			  <div class="modal-body">
-			    	회원가입 성공
+			    	회원가입 신청 완료.<br> 관리자 확인 후 승인/거부 처리 됩니다.
 			  </div>
 			  <div class="modal-footer">
-			    <button onclick = "location.href = 'loginForm.jsp'" type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>
+			    <button onclick = "location.href = '/user/loginForm.jsp'" type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>
 			  </div>
 			</div>
 			</div>

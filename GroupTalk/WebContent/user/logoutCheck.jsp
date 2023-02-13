@@ -9,8 +9,7 @@
 	session.invalidate();
 %>
 	<!-- Modal -->
-	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
+	<div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true"><div class="modal-dialog">
 	<div class="modal-content">
 	  <div class="modal-header">
 	    <h1 class="modal-title fs-5" id="exampleModalLabel">로그아웃</h1>
@@ -20,7 +19,7 @@
 	    	로그아웃 완료
 	  </div>
 	  <div class="modal-footer">
-	    <button onclick = "location.href = 'loginForm.jsp'" type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>
+	    <button onclick = "location.href = '/user/loginForm.jsp'" type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>
 	  </div>
 	</div>
 	</div>

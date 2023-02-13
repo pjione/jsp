@@ -11,6 +11,7 @@
 </head>
 <body>
 	<%@ include file = "/header.jsp" %>
+	<link href="/css/sign-in.css" rel="stylesheet">
 	<table align = center>
 		<tr>
 			<td><b>작성 메모 리스트</b></td>

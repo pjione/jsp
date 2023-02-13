@@ -13,7 +13,7 @@
 	<!-- Custom styles for this template -->
 	<link href="/css/sign-in.css" rel="stylesheet">
 	<main class="form-signin w-100 m-auto">
-		<form action = "loginCheck.jsp" method = "post">
+		<form action = "/user/loginCheck.jsp" method = "post">
 	    <img class="mb-4" src="/etc/main.jpg" alt="" width="200" height="160">
 	    <h1 class="h3 mb-3 fw-normal">Please login</h1>
 	

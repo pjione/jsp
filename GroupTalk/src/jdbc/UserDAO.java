@@ -42,15 +42,14 @@ public class UserDAO {
 		}
 		return false;		
 	}
-	
-	public boolean join(String id, String password, String name){
+	public boolean join(String id, String password, String name, String email){
 		sql = "INSERT INTO user(id,password,name,email) VALUES(?,?,?,?)";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
 			pstmt.setString(2, password);
 			pstmt.setString(3, name);	
-			pstmt.setString(4, name);
+			pstmt.setString(4, email);
 			if(pstmt.executeUpdate()==1) return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -60,6 +59,24 @@ public class UserDAO {
 		}
 		return false;		
 	}
+	public boolean joinTemp(String id, String password, String name, String email){
+		sql = "INSERT INTO temp(id,password,name,email) VALUES(?,?,?,?)";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, password);
+			pstmt.setString(3, name);	
+			pstmt.setString(4, email);
+			if(pstmt.executeUpdate()==1) return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			 if (pstmt != null) try { pstmt.close(); } catch(Exception e) {e.printStackTrace();}
+	         if (conn != null) try { conn.close(); } catch(Exception e) {e.printStackTrace();}
+		}
+		return false;		
+	}
+	
 	//회원 가입시 아이디가 이미 존재하는 지 여부 확인
 	public boolean exist(String id) {
 		sql = "SELECT * FROM user WHERE id = ?";
@@ -80,6 +97,20 @@ public class UserDAO {
 	// 회원 탈퇴
 	public boolean delete(String id) {
 		sql = "DELETE FROM user WHERE id = ?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			if(pstmt.executeUpdate() == 1) return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (pstmt != null) try { pstmt.close(); } catch(Exception e) {e.printStackTrace();}
+			if (conn != null) try { conn.close(); } catch(Exception e) {e.printStackTrace();}
+		}
+		return false;
+	}
+	public boolean deleteTemp(String id) {
+		sql = "DELETE FROM temp WHERE id = ?";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
@@ -113,6 +144,7 @@ public class UserDAO {
 		}
 		return 2;
 	}
+	
 	public List<UserDTO> list() {	
 		sql = "SELECT * FROM user ORDER BY ts DESC";
 		List<UserDTO> userList = new ArrayList<>();
@@ -120,7 +152,46 @@ public class UserDAO {
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				userList.add(new UserDTO(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4)));
+				userList.add(new UserDTO(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5)));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (pstmt != null) try { pstmt.close(); } catch(Exception e) {e.printStackTrace();}
+			if (conn != null) try { conn.close(); } catch(Exception e) {e.printStackTrace();}
+			if (rs != null) try { rs.close(); } catch (SQLException e) {e.printStackTrace();}
+		}
+		return userList;
+	}	
+	public UserDTO temp(String id) {	
+		sql = "SELECT * FROM temp WHERE id = ?";
+		UserDTO temp = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				temp =  new UserDTO(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5));
+				return temp;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (pstmt != null) try { pstmt.close(); } catch(Exception e) {e.printStackTrace();}
+			if (conn != null) try { conn.close(); } catch(Exception e) {e.printStackTrace();}
+			if (rs != null) try { rs.close(); } catch (SQLException e) {e.printStackTrace();}
+		}
+		return temp;
+	}	
+
+	public List<UserDTO> listTemp() {	
+		sql = "SELECT * FROM temp ORDER BY ts DESC";
+		List<UserDTO> userList = new ArrayList<>();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				userList.add(new UserDTO(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5)));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

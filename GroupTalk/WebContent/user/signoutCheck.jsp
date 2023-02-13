@@ -14,7 +14,7 @@
 			session.invalidate();
 			%>
 			<!-- Modal -->
-			<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 			<div class="modal-dialog">
 			<div class="modal-content">
 			  <div class="modal-header">
@@ -25,7 +25,7 @@
 			    	회원탈퇴 완료
 			  </div>
 			  <div class="modal-footer">
-			    <button onclick = "location.href = 'loginForm.jsp'" type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>
+			    <button onclick = "location.href = '/user/loginForm.jsp'" type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>
 			  </div>
 			</div>
 			</div>
@@ -40,7 +40,7 @@
 	} else{
 		%>
 		<!-- Modal -->
-		<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal fade" id="exampleModal2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 		<div class="modal-dialog">
 		<div class="modal-content">
 		  <div class="modal-header">
@@ -51,7 +51,7 @@
 		    	 비밀번호가 일치하지 않습니다.
 		  </div>
 		  <div class="modal-footer">
-		    <button onclick = "location.href = 'signoutForm.jsp'" type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>
+		    <button onclick = "location.href = '/user/signoutForm.jsp'" type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>
 		  </div>
 		</div>
 		</div>
